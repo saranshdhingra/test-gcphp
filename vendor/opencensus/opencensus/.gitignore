@@ -1,0 +1,18 @@
+# OS X
+.DS_Store
+
+# VSCode and other IDE's
+.vscode/
+.idea/
+
+# Composer
+build/
+cache/
+composer.phar
+composer.lock
+
+# Docs
+docs/json/**/*
+
+# Vendors
+vendor/

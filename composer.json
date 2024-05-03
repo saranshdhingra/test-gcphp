@@ -1,0 +1,28 @@
+{
+    "require": {
+        "google/cloud-spanner": "^1.70",
+        "google/cloud-bigtable": "^1.30",
+        "google/cloud-firestore": "^1.42",
+        "google/gax": "^1.32",
+        "opencensus/opencensus": "^0.7.0",
+        "opencensus/opencensus-exporter-stackdriver": "^0.1.0"
+    },
+    "autoload": {
+        "files": [
+            "vendor/google/cloud-spanner/src/V1/ExecuteSqlRequest.php",
+            "vendor/google/gax/src/ServerStream.php",
+            "vendor/google/gax/src/Transport/Grpc/ServerStreamingCallWrapper.php",
+            "vendor/google/cloud-spanner/src/Session/SessionPoolInterface.php",
+            "vendor/google/cloud-spanner/src/TransactionConfigurationTrait.php",
+            "vendor/google/cloud-spanner/src/RequestHeaderTrait.php",
+            "vendor/google/cloud-spanner/src/V1/Gapic/SpannerGapicClient.php",
+            "vendor/google/cloud-spanner/src/Result.php",
+            "vendor/google/cloud-spanner/src/Operation.php",
+            "vendor/google/cloud-core/src/ExponentialBackoff.php"
+        ]
+    },
+    "config": {
+        "classmap-authoritative": true
+    }
+
+}
