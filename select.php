@@ -2,17 +2,6 @@
 
 require __DIR__ . '/vendor/autoload.php';
 
-// use Google\Cloud\Spanner\V1\ExecuteSqlRequest;
-
-// $start = hrtime(true);
-// new ExecuteSqlRequest();
-// echo "time: " . showTime($start) . "\n";
-
-// $start = hrtime(true);
-// echo "2nd time: " . showTime($start) . "\n";
-
-die();
-
 use Google\Cloud\Spanner\SpannerClient;
 use Google\Cloud\Spanner\Session\CacheSessionPool;
 use Google\Auth\Cache\SysVCacheItemPool;
@@ -25,10 +14,7 @@ use OpenCensus\Trace\Exporter\StackdriverExporter;
 use OpenCensus\Trace\Tracer;
 use OpenCensus\Trace\Integrations\Grpc;
 
-// new ExecuteSqlRequest();
-// die();
-
-$clearSession = true;
+$clearSession = false;
 $explicitWarmup = true;
 $metadataQuery = false;
 $displayResult = false;
@@ -36,13 +22,13 @@ $displayStats = false;  // Only setting this true doesn't display stats, $displa
 $gfeLatency = false;
 $rowsLimit = 100;
 
-$projectId = 'saransh-devrel-external';
-$instanceId = 'ee-singapore';
-$databaseId = 'ee-singapore';
+// $projectId = 'saransh-devrel-external';
+// $instanceId = 'ee-singapore';
+// $databaseId = 'ee-singapore';
 
-// $projectId = 'span-cloud-latency-testing';
-// $instanceId = 'testinstance';
-// $databaseId = 'testdb';
+$projectId = 'span-cloud-latency-testing';
+$instanceId = 'testinstance';
+$databaseId = 'testdb';
 
 $authCache = new SysVCacheItemPool();
 $sessionCache = new SysVCacheItemPool([
@@ -92,7 +78,6 @@ $start = hrtime(true);
 if ($explicitWarmup) {
     $time = hrtime(true);
     $sessionPool->warmup();
-    
     echo "time taken to warmup " . showTime($time)."\n";
 } else {
     echo "No explicit warmup\n";
@@ -157,7 +142,7 @@ while($i<2) {
 
     Tracer::start($exporter, [
         // 'propagator' => new GrpcMetadataPropagator(),
-        'name' => 'sar-test-o-autoload',
+        'name' => 'sg-w-opcache',
         'startTime' => microtime(true),
         'attributes' => [
             'query' => $i,
