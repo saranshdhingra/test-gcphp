@@ -104,19 +104,12 @@ $exporter = new StackdriverExporter([
     ]
 ]);
 Grpc::load();
+
+// An attempt to just create the Tracer instance so we don't see a big gap b/w the first trace and it's first Span
+warmupTracer($exporter);
 $queriesStart = hrtime(true);
 $i = 0;
 while($i<2) {
-    // Tracer::start($exporter, [
-    //     // 'propagator' => new GrpcMetadataPropagator(),
-    //     'name' => 'sar-test',
-    //     'startTime' => microtime(true),
-    //     'attributes' => [
-    //         'query' => $i,
-    //         'pid' => $pid
-    //     ]
-    // ]);
-
     $bt = hrtime(true);
     // The query plan for this query will never be present,
     // so all these should be slow
@@ -239,6 +232,20 @@ function displayLogs() {
         }
         echo $row[0] . " : " . round($row[2]/1e6,2) . PHP_EOL;
     }
+}
+
+/**
+ * Simply initiates the trace, then clears alls spans and forces an exit.
+ * This is done before our test is started, so all the "Tracer" warmup is done.
+ */
+function warmupTracer($exporter) {
+    Tracer::start($exporter, [
+        'name' => 'random-trace'
+    ]);
+
+    opencensus_trace_clear();
+
+    Tracer::$instance->onExit();
 }
 
 ?>
