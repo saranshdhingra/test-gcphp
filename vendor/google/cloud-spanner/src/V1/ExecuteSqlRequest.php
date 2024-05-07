@@ -222,8 +222,12 @@ class ExecuteSqlRequest extends \Google\Protobuf\Internal\Message
      */
     public function __construct($data = NULL) {
         Tracer::inSpan(['name' => 'execute_sql_req_instantiation'], function () use($data){
+          Tracer::inSpan(['name' => 'self'], function () use($data){
             \GPBMetadata\Google\Spanner\V1\Spanner::initOnce();
+          });
+          Tracer::inSpan(['name' => 'parent'], function () use($data){
             parent::__construct($data);
+          });
         });
     }
 
